@@ -1,1 +1,12 @@
 @import "tailwindcss";
+@import "@fontsource/instrument-sans/400.css";
+
+@theme {
+  --color-brand-red: #ed2024;
+  --color-brand-cream: #fff6e7;
+  --color-brand-green: #006937;
+
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: marseille, sans-serif;          /* Adobe Fonts, solo peso 700 */
+  --font-script: adobe-handwriting-ernie, sans-serif; /* Adobe Fonts, solo peso 400 */
+}
