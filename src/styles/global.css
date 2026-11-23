@@ -10,3 +10,112 @@
   --font-display: marseille, sans-serif;          /* Adobe Fonts, solo peso 700 */
   --font-script: adobe-handwriting-ernie, sans-serif; /* Adobe Fonts, solo peso 400 */
 }
+
+/* ─── Cornice ─────────────────────────────────────────────────── */
+
+/* .page: container di riferimento per i cqw dei figli */
+.page {
+  container-type: inline-size;
+}
+
+/*
+ * .frame: bordi laterali rossi + sfondo crema.
+ * --n  = numero totale di strisce (bordi compresi)
+ * --s  = larghezza di una striscia = 1/N della larghezza pagina
+ * I bordi rossi laterali hanno la stessa larghezza di una striscia.
+ */
+.frame {
+  --n: 25;          /* mobile: 25 strisce */
+  --s: calc(100cqw / var(--n));
+  --stripes-h: 76px;
+  --dome-h: 43px;   /* misurato su SVG nodo 3:1322: rect.y = 43.2px */
+  --dome-w: 247px;  /* calcolato: 2 × 130 × √(1−((43.2−62.5)/62.5)²) */
+
+  border-inline: var(--s) solid var(--color-brand-red);
+  background: var(--color-brand-cream);
+}
+
+@media (min-width: 768px) {
+  .frame {
+    --n: 47;         /* desktop: 47 strisce */
+    --stripes-h: 150px;
+    --dome-h: 76px;  /* misurato su SVG nodo 3:1739: rect.y = 76.3px */
+    --dome-w: 526px; /* calcolato: 2 × 269 × √(1−((76.3−97)/97)²) */
+  }
+}
+
+/*
+ * .stripes: fascia orizzontale con strisce.
+ * Il gradiente inizia a sinistra con crema (prima striscia interna = crema),
+ * poi alterna rossa. background-size = 2 strisce = un periodo completo.
+ */
+.stripes {
+  height: var(--stripes-h);
+  background-image: linear-gradient(
+    to right,
+    var(--color-brand-cream) 50%,
+    var(--color-brand-red) 50%
+  );
+  background-size: calc(var(--s) * 2) 100%;
+  background-repeat: repeat-x;
+}
+
+/*
+ * .panel: pannello crema che contiene tutto il contenuto.
+ * La cupola (.dome) è posizionata in assoluto sopra il bordo superiore
+ * del pannello, coprendo la parte centrale della fascia a strisce.
+ */
+.panel {
+  position: relative;
+  background: var(--color-brand-cream);
+}
+
+.dome {
+  display: block;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  translate: -50% 0;
+  width: var(--dome-w);
+  height: var(--dome-h);
+  background: var(--color-brand-cream);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0; /* semi-ellisse */
+}
+
+/*
+ * .footer-band: fascia rossa alta 151px.
+ * Mobile: 3 righe centrate, testo a 35px dal bordo superiore.
+ * Desktop: 3 parole su una riga con justify-between, centro del testo a 52px
+ *          dal bordo superiore (pt = 52 − lh/2 = 52 − 13.5 ≈ 39px).
+ */
+.footer-band {
+  height: 151px;
+  background: var(--color-brand-red);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 35px;
+}
+
+@media (min-width: 768px) {
+  .footer-band {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-top: 39px;
+  }
+}
+
+.footer-word {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-brand-cream);
+  font-size: 30px;
+  line-height: 27px;
+}
+
+@media (min-width: 768px) {
+  .footer-word {
+    font-size: 50px;
+  }
+}
