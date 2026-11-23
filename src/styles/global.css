@@ -30,6 +30,10 @@
   --stripes-h: 76px;
   --dome-h: 43px;   /* misurato su SVG nodo 3:1322: rect.y = 43.2px */
   --dome-w: 247px;  /* calcolato: 2 × 130 × √(1−((43.2−62.5)/62.5)²) */
+  /* --r: larghezza del testo in em a font-size 100px.
+   * Misurato con document.fonts.ready, marseille 700, 100px:
+   *   "OUR CHEFS" = 501.5px → 501.5 / 100 = 5.015 */
+  --r: 5.015;       /* mobile: "OUR CHEFS" */
 
   border-inline: var(--s) solid var(--color-brand-red);
   background: var(--color-brand-cream);
@@ -41,6 +45,8 @@
     --stripes-h: 150px;
     --dome-h: 76px;  /* misurato su SVG nodo 3:1739: rect.y = 76.3px */
     --dome-w: 526px; /* calcolato: 2 × 269 × √(1−((76.3−97)/97)²) */
+    /* "OUR CHEFS • OUR CHEFS • OUR CHEFS • OUR CHEFS" = 2201.6px → 22.016 */
+    --r: 22.016;     /* desktop: stringa ×4 con bullet */
   }
 }
 
@@ -196,6 +202,35 @@
 }
 
 /* ─── Fine Intro ────────────────────────────────────────────────── */
+
+/* ─── Sezione 2: Our Chefs ──────────────────────────────────────── */
+
+/*
+ * .our-chefs: distanza dall'Intro = 45px (design-tokens.md, sections.md).
+ */
+.our-chefs {
+  margin-top: 45px;
+}
+
+/*
+ * .fit-title: titolo che si adatta alla larghezza.
+ * font-size = larghezza_interna / --r
+ * --r = larghezza del testo (in em) a font-size 100px.
+ * +4px: il testo sconfina di 2px per lato sotto il bordo rosso,
+ * così il contatto rosso-su-rosso è continuo (vedi decorations.md §4).
+ * margin-inline: -2px: compensa il margine negativo del contenuto.
+ */
+.fit-title {
+  display: block;
+  white-space: nowrap;
+  text-align: center;
+  line-height: 1;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-brand-red);
+  font-size: calc((100cqw - 2 * var(--s) + 4px) / var(--r));
+  margin-inline: -2px;
+}
 
 /*
  * .footer-band: fascia rossa alta 151px.
