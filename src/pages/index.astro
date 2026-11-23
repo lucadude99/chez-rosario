@@ -3,7 +3,50 @@ import "../styles/global.css";
 import { Image } from "astro:assets";
 import logoImg from "../assets/Logo.png";
 import ChefCard from "../components/ChefCard.astro";
+
+// ── Foto chef (tutti export già ritagliati 4× = 1244×700 → 311×175 box) ──
 import rosarioImg from "../assets/img1.jpg";
+import hannahImg  from "../assets/img2.png";
+import michaelImg from "../assets/img3.png";
+import giacomoImg from "../assets/img4.png";
+
+// ── Dati dei quattro chef (ordine: Rosario, Hannah, Michael, Giacomo) ──
+// Apostrofi e virgolette tipografiche dal documento docs/sections.md.
+// Giacomo: un solo spazio in "impact to dishes" (doppio nel Figma, corretto nei docs).
+const chefs = [
+  {
+    name: "ROSARIO",
+    role: "Head Chef",
+    bio1: "Renowned for his skills in making something out of nothing, magic out of the mundane, and the wonderful from the humdrum.",
+    bio2: "Our Head Chef is someone who has no need for the rule book any more - a committed bon viveur and creative genius.",
+    image: rosarioImg,
+    alt: "Rosario, Head Chef",
+  },
+  {
+    name: "HANNAH",
+    role: "Sous Chef",
+    bio1: "Our second-in-command brings years of experience of bringing together the best ingredients to create more than the sum of their parts.",
+    bio2: "This has allowed this chef to carve out a name for herself as one of the best - and most organised - in the business",
+    image: hannahImg,
+    alt: "Hannah, Sous Chef",
+  },
+  {
+    name: "MICHAEL",
+    role: "Chef De Partie",
+    bio1: "Our Station Chief for the evening has a wealth of experience in elevating the right things to make unforgettable experiences.",
+    bio2: "An experimental chef with a focus on proteins and a love of Greek yoghurt, they\u2019re sure to take our evening to higher heights",
+    image: michaelImg,
+    alt: "Michael, Chef De Partie",
+  },
+  {
+    name: "GIACOMO",
+    role: "Saucier",
+    bio1: "A desire to treat cuisine like science, not art, has allowed this chef to carve a space in the cookbooks that makes for interesting reading.",
+    bio2: "A demand for precision and a belief in the \u2018correct\u2019 way to do things brings a precise and measured impact to dishes",
+    image: giacomoImg,
+    alt: "Giacomo, Saucier",
+  },
+];
 ---
 
 <html lang="en">
@@ -66,17 +109,19 @@ import rosarioImg from "../assets/img1.jpg";
 
             <!--
               Griglia chef: 1 col mobile, 2 col da 768px, 4 col da 1400px.
-              Per ora solo Rosario; le altre tre card si aggiungono qui.
+              I dati sono nell'array `chefs` del frontmatter.
             -->
             <div class="chefs-grid">
-              <ChefCard
-                name="ROSARIO"
-                role="Head Chef"
-                bio1="Renowned for his skills in making something out of nothing, magic out of the mundane, and the wonderful from the humdrum."
-                bio2="Our Head Chef is someone who has no need for the rule book any more - a committed bon viveur and creative genius."
-                image={rosarioImg}
-                alt="Rosario, Head Chef"
-              />
+              {chefs.map((chef) => (
+                <ChefCard
+                  name={chef.name}
+                  role={chef.role}
+                  bio1={chef.bio1}
+                  bio2={chef.bio2}
+                  image={chef.image}
+                  alt={chef.alt}
+                />
+              ))}
             </div>
 
           </section>
