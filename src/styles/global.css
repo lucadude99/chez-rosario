@@ -156,13 +156,15 @@
 }
 
 /*
- * .intro-hello-wrap: contenitore con altezza fissa che garantisce spazio
- * sufficiente per la rotazione senza clip. align-self: stretch → larghezza
- * = larghezza del contenitore intro, così il testo ruotato è ben centrato.
+ * .intro-hello-wrap: contenitore con altezza minima per due righe ruotate
+ * su mobile (115px + padding-block: 20px → box ≈ 124px ≥ ~121px proiettati)
+ * e una riga su desktop (min-height: 135px, padding azzerato).
+ * overflow: visible garantisce che la rotazione non venga mai tagliata.
  */
 .intro-hello-wrap {
   align-self: stretch;
-  height: 115px;
+  min-height: 115px;
+  padding-block: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -171,13 +173,17 @@
 
 @media (min-width: 768px) {
   .intro-hello-wrap {
-    height: 135px;
+    min-height: 135px;
+    padding-block: 0;
   }
 }
 
 /*
  * .intro-hello: Adobe Handwriting Ernie, rosso.
  * Rotazione −9° mobile, −6° desktop (design-tokens.md).
+ * Mobile: 2 righe ("Hello &" / "Buongiorno") via <br class="md:hidden">.
+ * Desktop: 1 riga ("Hello & Buongiorno"), il <br> è display:none.
+ * Nessun white-space: nowrap: il testo va a capo dove il markup lo indica.
  */
 .intro-hello {
   display: block;
@@ -188,7 +194,6 @@
   line-height: 42px;
   letter-spacing: -0.42px;
   text-align: center;
-  white-space: nowrap;
   transform: rotate(-9deg);
 }
 
