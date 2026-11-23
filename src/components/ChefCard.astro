@@ -1,0 +1,71 @@
+---
+/**
+ * ChefCard.astro
+ *
+ * Card riutilizzabile per ogni chef della sezione "Our Chefs".
+ * Struttura (dall'alto): immagine 311×175 | banner a strisce 37px | area testo.
+ * Larghezza fissa 315px, bordo 2px rosso.
+ *
+ * Props:
+ *   name   – es. "ROSARIO"
+ *   role   – es. "Head Chef"
+ *   bio1   – primo paragrafo della bio
+ *   bio2   – secondo paragrafo della bio
+ *   image  – ImageMetadata dell'immagine (da src/assets/)
+ *   alt    – es. "Rosario, Head Chef"
+ */
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+interface Props {
+  name: string;
+  role: string;
+  bio1: string;
+  bio2: string;
+  image: ImageMetadata;
+  alt: string;
+}
+
+const { name, role, bio1, bio2, image, alt } = Astro.props;
+---
+
+<article class="chef-card">
+
+  <!-- ── Immagine 311×175, overflow hidden ── -->
+  <!--
+    img1.jpg è 1244×700 = esattamente 4× di 311×175 (export già ritagliato):
+    rapporto 1244/311 = 700/175 = 4.0 ⇒ nessun offset, solo object-fit: cover.
+  -->
+  <div class="chef-card__img-wrap">
+    <Image
+      src={image}
+      alt={alt}
+      widths={[311, 622]}
+      sizes="311px"
+      width={311}
+      height={175}
+      class="chef-card__img"
+    />
+  </div>
+
+  <!-- ── Banner a strisce (puro CSS, decorations.md §5) ── -->
+  <div class="card-banner" aria-hidden="true"></div>
+
+  <!-- ── Area testo: py-[35px], gap-[25px], centrato ── -->
+  <div class="chef-card__details">
+
+    <!-- Blocco nome + ruolo (≈70px = 2 righe × 35px lh) -->
+    <div class="chef-card__name-block">
+      <p class="chef-card__name">{name}</p>
+      <p class="chef-card__role">{role}</p>
+    </div>
+
+    <!-- Bio: due paragrafi separati da una riga vuota -->
+    <div class="chef-card__bio">
+      <p>{bio1}</p>
+      <p>{bio2}</p>
+    </div>
+
+  </div>
+
+</article>
