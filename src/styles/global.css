@@ -80,7 +80,122 @@
   height: var(--dome-h);
   background: var(--color-brand-cream);
   border-radius: 50% 50% 0 0 / 100% 100% 0 0; /* semi-ellisse */
+  z-index: 0; /* esplicitamente sotto .intro-logo (z-index:1) */
 }
+
+/* ─── Sezione 1: Intro ─────────────────────────────────────────── */
+
+/*
+ * .intro: colonna centrata, gap 35px tra logo, paragrafo e hello.
+ */
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 35px;
+}
+
+/*
+ * .intro-logo: si sovrappone alla fascia a strisce con margine negativo
+ * (decorations.md §2: 16px mobile, 30px desktop).
+ */
+.intro-logo {
+  display: block;
+  width: 326px;
+  height: auto;
+  flex-shrink: 0;
+  margin-top: -16px;
+  /* Stacking: il dome (.dome, position:absolute) verrebbe dipinto sopra
+   * gli elementi in-flow. position:relative + z-index:1 porta il logo
+   * sopra la cupola crema che coprirebbe la sua parte alta. */
+  position: relative;
+  z-index: 1;
+}
+
+@media (min-width: 768px) {
+  .intro-logo {
+    width: 712px;
+    margin-top: -30px;
+  }
+}
+
+/*
+ * .intro-para: tre paragrafi separati da una riga vuota (20px = 1 lh).
+ * font-variation-settings "wdth" 100 come nel Figma.
+ */
+.intro-para {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  color: var(--color-brand-green);
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  width: 284px;
+  font-variation-settings: "wdth" 100;
+}
+
+.intro-para p {
+  margin: 0;
+}
+
+.intro-para p + p {
+  margin-top: 20px; /* una riga vuota = 1 × line-height */
+}
+
+@media (min-width: 768px) {
+  .intro-para {
+    font-size: 16px;
+    width: 916px;
+  }
+}
+
+/*
+ * .intro-hello-wrap: contenitore con altezza fissa che garantisce spazio
+ * sufficiente per la rotazione senza clip. align-self: stretch → larghezza
+ * = larghezza del contenitore intro, così il testo ruotato è ben centrato.
+ */
+.intro-hello-wrap {
+  align-self: stretch;
+  height: 115px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+@media (min-width: 768px) {
+  .intro-hello-wrap {
+    height: 135px;
+  }
+}
+
+/*
+ * .intro-hello: Adobe Handwriting Ernie, rosso.
+ * Rotazione −9° mobile, −6° desktop (design-tokens.md).
+ */
+.intro-hello {
+  display: block;
+  font-family: var(--font-script);
+  font-weight: 400;
+  color: var(--color-brand-red);
+  font-size: 42px;
+  line-height: 42px;
+  letter-spacing: -0.42px;
+  text-align: center;
+  white-space: nowrap;
+  transform: rotate(-9deg);
+}
+
+@media (min-width: 768px) {
+  .intro-hello {
+    font-size: 72px;
+    line-height: 42px;
+    letter-spacing: -0.72px;
+    transform: rotate(-6deg);
+  }
+}
+
+/* ─── Fine Intro ────────────────────────────────────────────────── */
 
 /*
  * .footer-band: fascia rossa alta 151px.

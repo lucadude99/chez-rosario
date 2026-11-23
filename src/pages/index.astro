@@ -1,5 +1,7 @@
 ---
 import "../styles/global.css";
+import { Image } from "astro:assets";
+import logoImg from "../assets/Logo.png";
 ---
 
 <html lang="en">
@@ -13,13 +15,43 @@ import "../styles/global.css";
   <body class="bg-white">
     <div class="page">
       <div class="frame">
+
         <!-- fascia a strisce con cupola -->
         <div class="stripes" aria-hidden="true"></div>
 
-        <!-- pannello crema: contiene la cupola e (al passo 3) le sezioni -->
+        <!-- pannello crema -->
         <div class="panel">
           <span class="dome" aria-hidden="true"></span>
-          <!-- contenuto vuoto: sezioni implementate al passo 3 -->
+
+          <!-- ── Sezione 1: Intro ───────────────────────────────── -->
+          <section class="intro">
+
+            <!-- Logo: sovrappone le strisce di 16px (mob) / 30px (desk) -->
+            <Image
+              src={logoImg}
+              alt="Chez Rosario"
+              widths={[326, 652, 712, 1424]}
+              sizes="(min-width: 768px) 712px, 326px"
+              width={712}
+              height={228}
+              class="intro-logo"
+            />
+
+            <!-- Tre paragrafi separati da una riga vuota (20px = 1 lh) -->
+            <div class="intro-para">
+              <p>Chez Rosario is built from many visits and tours across Italy with the experience of a chef born from Britain.</p>
+              <p>Tasting from the pot of many families to truly understand the heart of Italian cooking. This is married with a deep rooted englishness of our head chef and the left field thinking of his team to generate a fusion restaurant truly new and truly original.</p>
+              <p>We here welcome you with open arms here at Chez Rosario. Where Britalian food is perfected.</p>
+            </div>
+
+            <!-- "Hello & Buongiorno": ruotato −9° mob / −6° desk -->
+            <div class="intro-hello-wrap">
+              <span class="intro-hello">Hello &amp; Buongiorno</span>
+            </div>
+
+          </section>
+          <!-- ── Fine Intro ─────────────────────────────────────── -->
+
         </div>
 
         <!-- fascia footer rossa -->
@@ -28,6 +60,7 @@ import "../styles/global.css";
           <span class="footer-word">BRITALIAN</span>
           <span class="footer-word">FOOD</span>
         </footer>
+
       </div>
     </div>
   </body>
