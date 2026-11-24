@@ -408,12 +408,20 @@
 }
 
 @media (min-width: 768px) {
+  /* Grid 3 colonne uguali: DELICIOUS sinistra, BRITALIAN centro, FOOD destra.
+   * justify-content: space-between avrebbe spostato BRITALIAN a destra
+   * perché DELICIOUS è più larga di FOOD. Con 1fr/1fr/1fr le tre colonne
+   * sono identiche e BRITALIAN cade esattamente al centro geometrico. */
   .footer-band {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: start;
     padding-top: 39px;
   }
+
+  .footer-word:nth-child(1) { text-align: left; }
+  .footer-word:nth-child(2) { text-align: center; }
+  .footer-word:nth-child(3) { text-align: right; }
 }
 
 .footer-word {
